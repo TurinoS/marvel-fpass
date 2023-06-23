@@ -7,32 +7,33 @@ import StyledCard from "../../Card"
 interface HomeProps {
     id: number
     name: string
-    description: string
     thumbnail: {
         path: string
         extension: string
     }
 }
 
-const StyledSection = styled.section`
+const StyledDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     gap: 1em;
-    margin-top: 10vh;
+    margin-top: 7.5vh;
 `
 
 export default function Home() {
 
-    const ts = Number(new Date());
-    const publicKey = "5c829aac03a6c5d7c96d977384fa9892";
-    const privateKey = "29b717a7be075eb02a480cded47084a69799de8c";
-    const hash = Md5.hashStr(ts + privateKey + publicKey);
+    const publicKey = "919b746fc3ba8b9e7330d92cddafcdac";
+    const privateKey = "9c4a30f90caa523f3e8a1e9c00211a7e6e941559";
 
     const [heroesData, setHeroesData] = useState<HomeProps[]>([]);
-    const [heroName, setHeroName] = useState('hu');
+    const [heroName, setHeroName] = useState('');
     
     useEffect(() => {
-        fetch(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&nameStartsWith=${heroName}`, {
+        const ts = Number(new Date());
+        const hash = Md5.hashStr(ts + privateKey + publicKey);
+
+        fetch(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}${heroName}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,21 +42,22 @@ export default function Home() {
         .then(res => res.json())
         .then(data => setHeroesData(data.data.results))
         .catch(err => console.log(err))  
-    }, [ts, publicKey, hash, heroName])
+    }, [publicKey, heroName])
     
     return(
-        <main>
-            <TextInput />
-            <StyledSection>
+        <section>
+            <TextInput onChange={e => setHeroName(`&nameStartsWith=${e.target.value}`)} />
+            <StyledDiv>
                 {heroesData.map((hero) => (
                     <StyledCard 
                         key={hero.id} 
-                        imgSrc={require(`${hero.thumbnail.path}.${hero.thumbnail.extension}`)}
+                        id={hero.id}
+                        imgSrc={`${hero.thumbnail.path}/portrait_fantastic.${hero.thumbnail.extension}`}
                         imgAlt={`Thumbnail do ${hero.name}`}
                         heroName={hero.name} 
                     />
                 ))}
-            </StyledSection>
-        </main>
+            </StyledDiv>
+        </section>
     )
 }

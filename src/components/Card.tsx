@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 interface CardProps {
+    id: number
     imgSrc: string
     imgAlt: string
     heroName: string
@@ -9,29 +10,34 @@ interface CardProps {
 const StyledCard = styled.a`
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 175px;
     text-decoration: none;
-    color: var(--font-color);
     background: linear-gradient(to bottom, var(--bg-secondary) 0%, var(--bg-secondary) 50%, var(--marvel-red) 50%, var(--marvel-red) 100%);
     background-size: 100% 200%;
     background-position: 0% 0%;
-    transition: background-position 0.3s ease;
-
+    transition: background-position 350ms ease;
+    
     &:hover {
-    background-position: 0% -100%;
+        background-position: 0% -100%;
+        cursor: pointer;
+        transform: scale(1.1);
+        transition: 350ms;
+        box-shadow: 0 6px 6px 4px var(--shadow);
     }
 
-    &img {
-        width: 100%;
+    & div {
+        padding: 1em;
+        border-top: 5px solid var(--marvel-red)
     }
 `
 
 export default function Card(props: CardProps) {
     return(
-        <StyledCard>
+        <StyledCard href={`/heropage/${props.id}`}>
             <img src={props.imgSrc} alt={props.imgAlt} />
-            <h2>{props.heroName}</h2>
-            <p>Saiba mais</p>
+            <div>
+                <h2>{props.heroName}</h2>
+            </div>
         </StyledCard>
     )
 }

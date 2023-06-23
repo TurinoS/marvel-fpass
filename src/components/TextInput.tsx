@@ -1,7 +1,13 @@
+import { ChangeEvent } from "react";
 import styled from "styled-components";
+
+interface TextInputProps {
+    onChange:(event: ChangeEvent<HTMLInputElement>) => void;
+}
 
 const StyledTextInput = styled.input`
     width: 40vw;
+    min-width: 355px;
     padding:.5em 2em;
     background-color: var(--bg-secondary);
     border: none;
@@ -15,13 +21,14 @@ const StyledTextInput = styled.input`
     }
 `
 
-export default function TextInput() {
+export default function TextInput(props: TextInputProps) {
     return(
         <StyledTextInput 
             type="text" 
-            placeholder="What hero do you search?" 
+            placeholder="What hero are you looking for?" 
             name="name"
             id="name"
+            onChange={props.onChange}
         />
     )
 }

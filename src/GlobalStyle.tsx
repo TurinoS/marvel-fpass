@@ -7,7 +7,7 @@ export const GlobalStyle = createGlobalStyle`
         --bg-primary: #17232c;
         --bg-secondary: #2b3642;
         --shadow: #0a1c29;
-        --border-radius: 16px;
+        --border-radius: 12px;
     }
     
     * {

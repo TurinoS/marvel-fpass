@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import logo from '../img/marvel-studios-logo.png';
+import { Link } from "react-router-dom";
 
 const StyledHeader = styled.header`
     background-color: var(--bg-secondary);
@@ -15,7 +16,7 @@ const StyledHeader = styled.header`
 export default function Header() {
     return(
         <StyledHeader>
-            <a href="/"><img src={logo} alt="Marvel logo" /></a>
+            <Link to="/"><img src={logo} alt="Marvel logo" /></Link>
         </StyledHeader>
     )
 }

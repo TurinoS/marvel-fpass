@@ -1,5 +1,5 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { StyledLink } from "./StyleComponents/Link.style";
 
 const StyledFooter = styled.footer`
     background-color: var(--bg-secondary);
@@ -7,12 +7,22 @@ const StyledFooter = styled.footer`
     box-shadow: 0 -6px 6px 2px var(--shadow);
     text-align: center;
     font-size: 18px;
+
+    & a {
+        text-decoration: none;
+        color: var(--font-color);
+    }
+
+    & a:hover {
+        color: var(--marvel-red);
+        transition: 350ms;
+    }
 `
 
 export default function Footer() {
     return(
         <StyledFooter>
-            <StyledLink href="https://www.marvel.com/">©2023 MARVEL</StyledLink>
+            <Link to="https://www.marvel.com/">©2023 MARVEL</Link>
         </StyledFooter>
     )
 }

@@ -41,7 +41,7 @@ export default function Home() {
         .then(res => res.json())
         .then(data => setHeroesData(data.data.results))
         .catch(err => console.log(err))  
-    })
+    }, [ts, publicKey, hash, heroName])
     
     return(
         <main>
@@ -52,9 +52,10 @@ export default function Home() {
                         key={hero.id} 
                         imgSrc={require(`${hero.thumbnail.path}.${hero.thumbnail.extension}`)}
                         imgAlt={`Thumbnail do ${hero.name}`}
-                        heroName={hero.name} />))}
+                        heroName={hero.name} 
+                    />
+                ))}
             </StyledSection>
-            
         </main>
     )
 }

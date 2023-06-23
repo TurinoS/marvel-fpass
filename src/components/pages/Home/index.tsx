@@ -2,6 +2,24 @@ import styled from "styled-components";
 import { Md5 } from 'ts-md5'
 import { useEffect, useState } from "react";
 import TextInput from "../../TextInput";
+import StyledCard from "../../Card"
+
+interface HomeProps {
+    id: number
+    name: string
+    description: string
+    thumbnail: {
+        path: string
+        extension: string
+    }
+}
+
+const StyledSection = styled.section`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-top: 10vh;
+`
 
 export default function Home() {
 
@@ -10,26 +28,33 @@ export default function Home() {
     const privateKey = "29b717a7be075eb02a480cded47084a69799de8c";
     const hash = Md5.hashStr(ts + privateKey + publicKey);
 
-    const [data, setData] = useState([])
+    const [heroesData, setHeroesData] = useState<HomeProps[]>([]);
+    const [heroName, setHeroName] = useState('hu');
     
     useEffect(() => {
-        fetch(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`, {
+        fetch(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&nameStartsWith=${heroName}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
         })
         .then(res => res.json())
-        .then(data => setData(data))
-        .catch(err => console.log(err))
-
-        console.log(data)
-    }, [setData, data, hash, ts])
+        .then(data => setHeroesData(data.data.results))
+        .catch(err => console.log(err))  
+    })
     
     return(
-        <section>
-            <h2>Home</h2>
+        <main>
             <TextInput />
-        </section>
+            <StyledSection>
+                {heroesData.map((hero) => (
+                    <StyledCard 
+                        key={hero.id} 
+                        imgSrc={require(`${hero.thumbnail.path}.${hero.thumbnail.extension}`)}
+                        imgAlt={`Thumbnail do ${hero.name}`}
+                        heroName={hero.name} />))}
+            </StyledSection>
+            
+        </main>
     )
 }

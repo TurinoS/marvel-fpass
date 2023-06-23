@@ -53,7 +53,7 @@ export default function Home() {
                         key={hero.id} 
                         id={hero.id}
                         imgSrc={`${hero.thumbnail.path}/portrait_fantastic.${hero.thumbnail.extension}`}
-                        imgAlt={`Thumbnail do ${hero.name}`}
+                        imgAlt={`${hero.name}'s image`}
                         heroName={hero.name} 
                     />
                 ))}

@@ -3,6 +3,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useParams, Link } from "react-router-dom";
 import { Md5 } from 'ts-md5'
 import { useEffect, useState } from "react";
+import ComicCard from "../../ComicCard"
 
 interface HeroPageProps {
     name: string
@@ -14,6 +15,12 @@ interface HeroPageProps {
     urls: [{
         url: string
     }]
+    comics: {
+        items: [{
+            resourceURI: string
+            name: string
+        }]
+    }
 }
 
 const StyledSection = styled.section`
@@ -35,9 +42,38 @@ const StyledSection = styled.section`
     }
 `
 
+const StyledSectionHero = styled.section`
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 60vw;
+    gap: 2em;
+    margin-top: 7vh;
+
+    & img {
+        width: 100%
+    }
+
+    & h1 {
+        font-size: 52px;
+    }
+
+    & p {
+        margin-top: 1em;
+        font-size: 20px;
+    }
+`
+
+const StyledSectionComics = styled.section`
+    margin-top: 7vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+`
+
 export default function HeroPage() {
 
     const { id } = useParams();
+    const numberId = Number(id);
 
     const publicKey = "919b746fc3ba8b9e7330d92cddafcdac";
     const privateKey = "9c4a30f90caa523f3e8a1e9c00211a7e6e941559";
@@ -56,9 +92,7 @@ export default function HeroPage() {
             },
         })
         .then(res => res.json())
-        .then(data => {
-            console.log(`${data.data.results[0].thumbnail.path}.${data.data.results[0].thumbnail.extension}`)
-            setHeroData(data.data.results)})
+        .then(data => setHeroData(data.data.results))
         .catch(err => console.log(err))  
     }, [publicKey, id])
 
@@ -68,14 +102,35 @@ export default function HeroPage() {
         <StyledSection>
             <Link to="/" ><MdOutlineKeyboardBackspace />Back</Link>
             {currentHero && (
-                <div>
-                    <img src={`${currentHero.thumbnail.path}/portrait_fantastic.${currentHero.thumbnail.extension}`} alt={`imagem do ${currentHero.name}`} />
-                    <div>
-                        <h1>{currentHero.name}</h1>
-                        <p>{currentHero.description}</p>
-                    </div>
-                    <Link target="_blank" to={currentHero.urls[0].url}>Consult {currentHero.name}'s comics</Link>
-                </div>
+                <>
+                    <StyledSectionHero>
+                        <img 
+                            src={`${currentHero.thumbnail.path}/portrait_fantastic.${currentHero.thumbnail.extension}`} 
+                            alt={`imagem do ${currentHero.name}`} 
+                        />
+                        <div>
+                            <h1>{currentHero.name}</h1>
+                            {currentHero.description ? <p>{currentHero.description}</p> : <p>Sorry, we dont {}</p>}
+                        </div>
+                    </StyledSectionHero>
+                    <StyledSectionComics>
+                        {currentHero.comics.items.map((comic) => (
+                            <ComicCard 
+                                key={id} 
+                                id={numberId} 
+                                comicName={comic.name} 
+                                imgSrc={comic.resourceURI} 
+                                imgAlt={`Thumbnail of ${comic.name} comic`} 
+                            />
+                        ))}
+                        <Link 
+                            target="_blank" 
+                            to={currentHero.urls[0].url}
+                        >
+                            Consult {currentHero.name}'s comics
+                        </Link>
+                    </StyledSectionComics>  
+                </>
             )}
         </StyledSection>
     )

@@ -25,7 +25,7 @@ export default function Home() {
         const ts = Number(new Date());
         const hash = Md5.hashStr(ts + privateKey + publicKey);
 
-        fetch(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}${heroName}`, {
+        fetch(`https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}${heroName}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

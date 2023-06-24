@@ -52,7 +52,7 @@ export default function HeroPage() {
         const ts = Number(new Date());
         const hash = Md5.hashStr(ts + privateKey + publicKey);
 
-        fetch(`http://gateway.marvel.com/v1/public/characters/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`, {
+        fetch(`https://gateway.marvel.com/v1/public/characters/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export default function HeroPage() {
         const ts = Number(new Date());
         const hash = Md5.hashStr(ts + privateKey + publicKey);
 
-        fetch(`http://gateway.marvel.com/v1/public/characters/${id}/comics?ts=${ts}&apikey=${publicKey}&hash=${hash}`, {
+        fetch(`https://gateway.marvel.com/v1/public/characters/${id}/comics?ts=${ts}&apikey=${publicKey}&hash=${hash}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

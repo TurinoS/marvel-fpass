@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { Md5 } from 'ts-md5'
+import { StyledDiv } from '../../StyleComponents/Home.style';
+import { Md5 } from 'ts-md5';
 import { useEffect, useState } from "react";
 import TextInput from "../../TextInput";
-import StyledCard from "../../Card"
+import StyledHeroCard from "../../HeroCard";
 
 interface HomeProps {
     id: number
@@ -12,14 +12,6 @@ interface HomeProps {
         extension: string
     }
 }
-
-const StyledDiv = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1em;
-    margin-top: 7.5vh;
-`
 
 export default function Home() {
 
@@ -48,15 +40,20 @@ export default function Home() {
         <section>
             <TextInput onChange={e => setHeroName(`&nameStartsWith=${e.target.value}`)} />
             <StyledDiv>
-                {heroesData.map((hero) => (
-                    <StyledCard 
+                {heroesData.map((hero) => {
+                    if(hero.thumbnail.path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available") {
+                        return null;
+                    }
+                    
+                    return(
+                    <StyledHeroCard 
                         key={hero.id} 
                         id={hero.id}
                         imgSrc={`${hero.thumbnail.path}/portrait_fantastic.${hero.thumbnail.extension}`}
                         imgAlt={`${hero.name}'s image`}
                         heroName={hero.name} 
                     />
-                ))}
+                )})}
             </StyledDiv>
         </section>
     )

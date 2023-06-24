@@ -22,7 +22,7 @@ const StyledFooter = styled.footer`
 export default function Footer() {
     return(
         <StyledFooter>
-            <Link to="https://www.marvel.com/">©2023 MARVEL</Link>
+            <Link target="_blank" to="https://www.marvel.com/">Data provided by Marvel. © 2023 MARVEL</Link>
         </StyledFooter>
     )
 }

@@ -9,7 +9,13 @@ const StyledHeader = styled.header`
     justify-content: center;
 
     & img {
-        width: 400px;
+        width: 240px;
+    }
+
+    @media (max-width: 400px) {
+        & img {
+            width: 80vw
+        }
     }
 `
 

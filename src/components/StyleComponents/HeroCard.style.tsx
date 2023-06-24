@@ -1,13 +1,6 @@
 import styled from "styled-components";
 
-interface CardProps {
-    id: number
-    imgSrc: string
-    imgAlt: string
-    heroName: string
-}
-
-const StyledCard = styled.a`
+export const StyledHeroCard = styled.a`
     display: flex;
     flex-direction: column;
     width: 175px;
@@ -30,14 +23,3 @@ const StyledCard = styled.a`
         border-top: 5px solid var(--marvel-red)
     }
 `
-
-export default function Card(props: CardProps) {
-    return(
-        <StyledCard href={`/heropage/${props.id}`}>
-            <img src={props.imgSrc} alt={props.imgAlt} />
-            <div>
-                <h2>{props.heroName}</h2>
-            </div>
-        </StyledCard>
-    )
-}

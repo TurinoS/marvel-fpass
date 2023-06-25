@@ -6,6 +6,7 @@ export const StyledDiv = styled.div`
     justify-content: space-between;
     gap: 1em;
     margin-top: 7.5vh;
+    min-height: 100vh;
 
     @media (max-width: 430px) {
         justify-content: center;

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const StyledSection = styled.section`
+    min-height: 100vh;
+    
     & a {
         text-decoration: none;
         background-color: var(--bg-secondary);

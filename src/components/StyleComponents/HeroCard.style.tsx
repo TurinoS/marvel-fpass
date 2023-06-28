@@ -4,6 +4,7 @@ export const StyledHeroCard = styled.a`
     display: flex;
     flex-direction: column;
     width: 175px;
+    max-height: 500px;
     text-decoration: none;
     background: linear-gradient(to bottom, var(--bg-secondary) 0%, var(--bg-secondary) 50%, var(--marvel-red) 50%, var(--marvel-red) 100%);
     background-size: 100% 200%;

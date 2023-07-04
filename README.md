@@ -24,7 +24,7 @@
 Clone este repositório usando o comando:
 
 ```
-git clone https://github.com/JCDMeira/e-commerce.git
+git clone https://github.com/TurinoS/marvel-fpass.git
 ```
 
 Na pasta do projeto instale as dependências com uso do npm ou yarn
